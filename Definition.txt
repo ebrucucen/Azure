@@ -1,0 +1,50 @@
+#*******************************#
+#Step 1: Create Vault
+#*******************************#
+<#
+       Note1:Sku allows 2 service tier options: "standard" and "premium". Premium allows Key's to be HSM protected keys; Secrets and Software-protected keys are supported by both of the service tiers.
+       Note2: Once Vault is created we can use the data for applications in app.config.AuthClientID and AuthClientSecret are from Management Portal
+       VaultUrl: https://MyVault1.vault.azure.net
+       AuthClientID: 4cabf826-ed4d-429f-8c07-79c3e32f6c9b
+       AuthClientSecret: FyGyZwe+XmYWc7DZ1fptrCvo2Tpy5J5HWRJSN5ELZ+c=
+#>
+#*******************************#
+ 
+New-AzureKeyVault -VaultName MyVault1 -ResourceGroupName MyResourceGroup -Location "West Europe" -Sku standard
+ 
+#*******************************#
+#Step 2: Set AccessPolicy
+#*******************************#
+<#
+       Note1: spn is ClientID from the AD managementazureportal
+       Note2: We had to add EnabledForTemplateDeployment true in resources.azure.com for this vault.
+       Normally this parameter is available Set-AzureRMKeyVaultAccessPolicy cmdlet which I did not have access
+#>
+#*******************************#
+ 
+Set-AzureKeyVaultAccessPolicy -VaultName MyVault1 -ResourceGroupName MyResourceGroup -EnabledForDeployment -ServicePrincipalName 4cabfsd6-ed4d-429f-8c07-79c3e32f6c9b -PermissionsToKeys all -PermissionsToSecrets all
+ 
+#*******************************#
+#Step3: Add Key to the Vault
+#*******************************#
+ 
+$key = Add-AzureKeyVaultKey -VaultName 'MyVault1' -Name 'VMAdmin' -Destination 'Software'
+ 
+#To view:
+$Key.key.kid
+#Which will look similar to: https://MyVault1.vault.azure.net/keys/VMAdmin/f8b6a8a4c11b4373a34d473e71940abe
+ 
+#*******************************#
+#Step4: Add Secret to the Vault
+#*******************************#
+ 
+$secretvalue = ConvertTo-SecureString 'Pa$$w0rd' -AsPlainText -Force
+$secret = Set-AzureKeyVaultSecret -VaultName 'MyVault1' -Name 'VMAdmin' -SecretValue $secretvalue
+ 
+#To view the secret:
+$secret.Id
+# Which will look similar to: https://MyVault1.vault.azure.net:443/secrets/VMAdmin/ef35d55f29db4fa1acab934c2714d1f0
+ 
+#To view your keys/secrets:
+Get-AzureKeyVaultKey –VaultName 'MyVault1'
+Get-AzureKeyVaultSecret –VaultName 'MyVault1'

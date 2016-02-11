@@ -508,6 +508,7 @@
     }
   ],
   "variables": {
+    "TemplateDescription": "This is the example from: https://blogs.msdn.microsoft.com/kaevans/2015/07/06/azure-resource-manager-templates-with-visual-studio-2015/",
     "accountid": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', variables('diagnosticsStorageAccountResourceGroup'), '/providers/', 'Microsoft.Storage/storageAccounts/', variables('diagnosticsStorageAccountName'))]",
     "stageAvailabilitySetName": "StageAvSet",
     "prodAvailabilitySetName": "ProdAvSet",
