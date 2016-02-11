@@ -10,7 +10,7 @@
     },
     "adminUsername": {
       "type": "string",
-      "minLength": 1,
+      "minLength": 2,
       "metadata": {
         "description": "Username for the Virtual Machine."
       }
