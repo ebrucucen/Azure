@@ -1,0 +1,23 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "value": "admin123"
+    },
+    "virtualNetworkName": {
+      "value": "myvnet1" 
+    },
+    "adminPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/46bcb9e2-92d5-4a5c-9c58-4b5deb2b30d3/resourceGroups/VS-ratemyinstructor-Group/providers/Microsoft.KeyVault/vaults/RMIVault1"
+        },
+        "secretName": "VMPass"
+      }
+    },
+    "numberOfInstances": {
+      "value": 3 
+    }
+  }
+}
