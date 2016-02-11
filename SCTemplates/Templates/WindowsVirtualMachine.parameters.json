@@ -13,7 +13,7 @@
     "adminUsername": {
       "value": "admin123"
     },
-    "dnsNameForPublicIP": {
+    "dnsBaseNameForPublicIP": {
       "value": "myrminewdns"
     }
   }
