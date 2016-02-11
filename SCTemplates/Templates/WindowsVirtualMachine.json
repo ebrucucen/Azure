@@ -152,7 +152,7 @@
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[concat(variables('vmNameBase'), copyindex())]",
         "copy": {
-          "name": "virtualMachineLoop",
+          "name": "vmLoop",
           "count": "[parameters('numberOfInstances')]"
         },
         "location": "[resourceGroup().location]",
@@ -191,7 +191,7 @@
           "networkProfile": {
             "networkInterfaces": [
               {
-                "id": "[resourceId('Microsoft.Network/networkInterfaces','nic', CopyIndex())]"
+                "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('nic', CopyIndex()))]"
               }
             ]
           },
@@ -251,7 +251,7 @@
     "vhdStorageName": "[concat('vhdstorage', uniqueString(resourceGroup().id))]",
     "vhdStorageType": "Standard_LRS",
     "virtualNetworkName": "MyVNET",
-    "vmNameBase": "[concat('E', parameters('envNo'), '-', variables('vmType'), '-'",
+    "vmNameBase": "[concat('E', parameters('envNo'), '-', variables('vmType'), '-')]",
     "vmSize": "Standard_A2",
     "vmType": "WWW",
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
