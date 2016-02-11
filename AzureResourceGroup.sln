@@ -5,6 +5,13 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "AzureResourceGroup", "AzureResourceGroup1\AzureResourceGroup.deployproj", "{C45C0A46-5D9F-430E-A168-456357EF26A8}"
 EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "SCTemplates", "SCTemplates\SCTemplates.deployproj", "{613F77AC-5B33-4E5C-8A6C-2A95944A12F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{9240D2E6-036C-48F6-94D8-BD53A6284CE3}"
+	ProjectSection(SolutionItems) = preProject
+		Definition.txt = Definition.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +22,10 @@ Global
 		{C45C0A46-5D9F-430E-A168-456357EF26A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C45C0A46-5D9F-430E-A168-456357EF26A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C45C0A46-5D9F-430E-A168-456357EF26A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{613F77AC-5B33-4E5C-8A6C-2A95944A12F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{613F77AC-5B33-4E5C-8A6C-2A95944A12F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{613F77AC-5B33-4E5C-8A6C-2A95944A12F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{613F77AC-5B33-4E5C-8A6C-2A95944A12F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
