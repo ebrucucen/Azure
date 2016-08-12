@@ -60,13 +60,13 @@ $subscriptionName= "xEnvironments"
 #$username ="aaa"
 #$secpassword= Converto-SecureString "xmy" -AsPlainText -Force 
 #$credential= New-Object System.Management.Automation.PSCredential ($username, $secpassword)
-#$credential | Export-Clixml "c:\textpass.txt"
+#$credential | Export-Clixml $passFile
 
 #1. b: Login to Azure 
 #If you have your crendentials
-$acc= Import-Clixml "C:\textpass.txt"
+$acc= Import-Clixml $passFile
 Add-AzureRmAccount -Credential $acc
-Set-AzureRmContext -SubscriptionName 'xEnvironments'
+Set-AzureRmContext -SubscriptionName $subscriptionName
 
 ##########################
 #### C. Run DSC ####
