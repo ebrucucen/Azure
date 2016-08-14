@@ -30,7 +30,7 @@ winrm quickconfig -q -force
 #2. Install module/clone/copy from github
 Install-Module PackageManagementProviderResource
 #3. Execute the configuration 
-InstallCoreModules -modules @("xPSDesiredStateConfiguration","cChoco","xNetworking","xStorage","xPowerShellExecutionPolicy") -repository "PSGallery"
+InstallCoreModules -modules @("xPSDesiredStateConfiguration","cChoco","xNetworking","xStorage","xTimeZone","xPowerShellExecutionPolicy") -repository "PSGallery"
 #4. Start the lcm
 Set-DscLocalConfigurationManager -Path .\InstallCoreModules
 #5. Run the configuration to install required modules

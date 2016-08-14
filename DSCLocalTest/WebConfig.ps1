@@ -9,8 +9,9 @@ Configuration producta_web{
     Node TestWebDSC
 	{
     	Import-DscResource -ModuleName xPSDesiredStateConfiguration -moduleVersion 3.12.0.0
-	    
-        $directories = @('D:\TestFolder1','D:\TestFolder2\')
+        Import-DscResource -ModuleName xTimeZone
+
+        $directories = @('C:\Utils','D:\TestFolder1')
 		$Number = 0
 		foreach ($directory in $directories){
 			File ("SetDirectory{0}" -f $Number)
@@ -42,6 +43,64 @@ Configuration producta_web{
             }    
 
 	    }
+
+         Script SetNetShDynamicPort
+		{
+ 			GetScript = {
+						return @{ 
+						SetScript = $SetScript 
+						TestScript = $TestScript 
+						GetScript = $GetScript 
+					}
+			}    
+			SetScript = {
+				Invoke-Command  {netsh int ipv4 set dynamicportrange protocol=tcp startport=50001 numberofports=5000 } 
+			
+            }
+     		TestScript = { 	
+				$netshResult = Invoke-Command  {netsh int ipv4 show dynamicport tcp}
+                $netshResult = $netshResult | Select-String : #break into chunks if colon  only
+				$result = @{}
+				
+				$i = 0
+				while($i -lt $netshResult.Length){
+					$line = $netshResult[$i]
+					$line = $line -split(":")
+					$line[0] = $line[0].trim()
+					$line[1] = $line[1].trim()
+					$result.$($line[0]) = $($line[1])
+					$i++
+					}
+				$val1=(($result.'Start Port') -eq 50001)
+				$val2=($($result.'Number of Ports') -eq 5000)
+				return ($val1 -and $val2)
+
+			}
+		}
+        
+        Script ChangeLocalisation
+		{
+		  GetScript = {
+			return @{
+			  SetScript = $SetScript
+			  TestScript = $TestScript
+			  GetScript = $GetScript
+			}
+		  }
+		  TestScript = {
+			((get-itemproperty "HKCU:\control panel\international" -name "scountry").sCountry -eq "United Kingdom")
+		  }
+		  SetScript = {
+			& 'C:\Utils\ChangeLocalisation.ps1' 
+		  }
+		 # DependsOn = @("[xRemoteFile]Copy ChangeLocalisationScript","[xRemoteFile]Copy defaultreg","[xRemoteFile]Copy welcomereg")
+		}
+    
+          xTimeZone TimeZoneExample
+        {
+            IsSingleInstance = 'Yes'
+            TimeZone         = "GMT Standard Time"
+        }
 }
 }
 ##########################
